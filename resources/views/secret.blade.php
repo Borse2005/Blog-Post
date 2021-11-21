@@ -16,6 +16,7 @@
 
                     {{ __('Secret page') }}
                     <p class="mb-0">This is a secret email secret@laravel.com</p>
+                    <p>Mail Secret</p>
                     
                 </div>
             </div>
