@@ -5,7 +5,7 @@
     <div class="row justify-content-center">
         <div class="col-md-8">
             <div class="card">
-                <div class="card-header">{{ __('Dashboard') }}</div>
+                <div class="card-header">{{ __('Post Content') }}</div>
 
                 <div class="card-body">
                     @if (session('status'))
@@ -19,6 +19,15 @@
                         <span class="font-weight-bold">Content : </span>{{ $post->content }} <br>
                         <span class="font-weight-bold">Time : </span>{{ $post->created_at->diffForHumans() }}<br>
                         <span class="font-weight-bold">Creater : </span>{{ $post->user->name }}<br>
+                        @if ( $post->created_at->diffInMinutes() < 5)
+                            @component('components.badge', ['type' => 'primary'])
+                                New Post !            
+                            @endcomponent
+                        @else
+                            @component('components.badge', ['type' => 'primary'])
+                                Old Post !            
+                            @endcomponent
+                        @endif
                         <div >
                             <div class="font-weight-bold">Comment : </div>
                             <div class="pl-3">

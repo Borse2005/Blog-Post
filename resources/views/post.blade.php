@@ -47,7 +47,7 @@
         <div class="col-md-4">
             <div class="card" style="width: 18rem;">
                 <div class="card-body">
-                    <h5 class="card-title">Most Active user</h5>
+                    <h5 class="card-title">Most Commented Post</h5>
                     <h6 class="card-subtitle mb-2 text-muted">
                         What people are currently talking about
                     </h6>
@@ -84,10 +84,10 @@
             <div class="card mt-4" style="width: 18rem;">
                 <div class="card-body">
                     <h5 class="card-title">
-                        Most Active User
+                        Most Active User 
                     </h5>
                     <h6 class="card-subtitle mb-2 text-muted">
-                        Users with most posts written
+                        Last month active user
                     </h6>
                 </div>
                 <ul class="list-group list-group-flush">
