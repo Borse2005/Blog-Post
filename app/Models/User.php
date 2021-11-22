@@ -54,6 +54,6 @@ class User extends Authenticatable
     public function scopeMostActiveUserInLastMonth(Builder $query){
         return $query->withCount(['post' => function(Builder $query){
             return $query->whereBetween(Static::CREATED_AT, [now()->subMonth(), now()]);
-        }])->having('post_count', '>=', 2)->orderBy('post_count','desc');
+        }])->has('post', '>=', 2)->orderBy('post_count','desc');
     }
 }

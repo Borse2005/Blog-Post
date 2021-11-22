@@ -17,24 +17,22 @@
                     <div>
                         <span class="font-weight-bold">Title : </span>{{ $post->title }} <br>
                         <span class="font-weight-bold">Content : </span>{{ $post->content }} <br>
-                        <span class="font-weight-bold">Time : </span>{{ $post->created_at->diffForHumans() }}<br>
-                        <span class="font-weight-bold">Creater : </span>{{ $post->user->name }}<br>
-                        @if ( $post->created_at->diffInMinutes() < 5)
-                            @component('components.badge', ['type' => 'primary'])
-                                New Post !            
-                            @endcomponent
-                        @else
-                            @component('components.badge', ['type' => 'primary'])
-                                Old Post !            
-                            @endcomponent
-                        @endif
+                        @component('components.updated', ['date' => $post->created_at, 'name' => $post->user->name])
+                        @endcomponent <br>
+                        @component('components.updated', ['date' => $post->updated_at, ])
+                            Updated
+                        @endcomponent
+                        @component('components.badge', ['show' => now()->diffInMinutes($post->created_at) < 5])
+                            New Post !   
+                        @endcomponent
                         <div >
                             <div class="font-weight-bold">Comment : </div>
                             <div class="pl-3">
                                 @forelse ($post->comment as $key=> $posts)
                                   {{ $posts->content }} <br>
                                   <span class="pl-3">
-                                      Added   {{ $posts->created_at->diffForHumans() }}
+                                    @component('components.updated', ['date' => $posts->created_at,])
+                                    @endcomponent
                                 </span><br>
                                 @empty
                                     <div>Comments not yet!</div>
