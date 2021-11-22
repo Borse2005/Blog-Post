@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Requests\Post as RequestsPost;
 use App\Models\Post;
 use App\Models\User;
+use Illuminate\Support\Facades\Cache;
 
 class PostController extends Controller
 {
@@ -19,11 +20,28 @@ class PostController extends Controller
      */
     public function index()
     {
-        $post = Post::latest()->withCount('comment')->with('user')->get();
-        $comment = Post::mostCommented()->take(5)->get();
-        $user = User::withMostActiveUser()->take(5)->get();
-        $active = User::MostActiveUserInLastMonth()->take(5)->get();
-        // dd($post);
+        $posts = Cache::remember('post', 10, function(){
+            return Post::latest()->withCount('comment')->with('user')->get();
+        });
+
+        $comments = Cache::remember('comment',10, function ()
+        {
+            return Post::mostCommented()->take(5)->get();
+        });
+
+        $users = Cache::remember('user', 10, function(){
+            return User::withMostActiveUser()->take(5)->get();
+        });
+
+        $actives = Cache::remember('active', now()->addSecond(10), function(){
+            return User::MostActiveUserInLastMonth()->take(5)->get();
+        });
+
+        $post = $posts;
+        $comment = $comments;
+        $user = $users;
+        $active = $actives;
+
         return view('post', compact('post','comment','user', 'active'));
     }
 
@@ -58,13 +76,16 @@ class PostController extends Controller
      * @param  \App\Models\Post  $post
      * @return \Illuminate\Http\Response
      */
-    public function show($posts)
+    public function show($id)
     {
         // $post = Post::with(['comment' => function($query){
         //     $query->latest();
         // }],'user')->FindOrFail($post);
-
-        $post = Post::with('comment','user')->Find($posts);
+        
+        $posts = Cache::remember("blog-posts-{$id}", 60, function() use($id) {
+            return Post::with('comment','user')->Find($id);
+        });
+        $post = $posts;
         return view('content', compact('post'));
     }
 
