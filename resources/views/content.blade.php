@@ -25,6 +25,9 @@
                         @component('components.badge', ['show' => now()->diffInMinutes($post->created_at) < 5])
                             New Post !   
                         @endcomponent
+                        <div class="pl-3">
+                            Currently read by {{ $counter }} people
+                        </div>
                         <div >
                             <div class="font-weight-bold">Comment : </div>
                             <div class="pl-3">

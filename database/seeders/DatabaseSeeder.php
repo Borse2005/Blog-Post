@@ -4,6 +4,7 @@ namespace Database\Seeders;
 
 use Illuminate\Support\Str;
 use Illuminate\Database\Seeder;
+use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\DB;
 
 class DatabaseSeeder extends Seeder
@@ -25,6 +26,8 @@ class DatabaseSeeder extends Seeder
             'updated_at' => now(),
             'is_admin' =>true,
         ]);
+
+        Cache::tags(['blog-posts'])->flush();
 
          \App\Models\User::factory(100)->create();
          \App\Models\Post::factory(200)->create();
