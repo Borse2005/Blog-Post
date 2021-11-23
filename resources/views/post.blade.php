@@ -40,7 +40,7 @@
                         <div>Post not yet!</div>
                     @endforelse
 
-                     <div class="mt-3 mb-0">{{ $post->links() }}</div> 
+                     {{-- <div class="mt-3 mb-0">{{ $post->links() }}</div>  --}}
                 </div>
             </div>
         </div>
