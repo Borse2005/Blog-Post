@@ -54,6 +54,8 @@ class Post extends Model
             Cache::forget("blog-posts-{$post->id}");
         });
 
+        
+
         static::restoring(function(Post $post){
             $post->comments->restored();
         });

@@ -21,7 +21,7 @@ class PostController extends Controller
     public function index()
     {
         $posts = Cache::tags('blog-posts')->remember('post', now()->addMinutes(1), function(){
-            return Post::latest()->withCount('comment')->with('user')->paginate(20);
+            return Post::latest()->withCount('comment')->with('user')->get();
         });
 
         $comments = Cache::remember('comment',now()->addMinute(1), function ()
