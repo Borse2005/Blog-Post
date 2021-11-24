@@ -43,7 +43,9 @@ class Post extends Model
         return $query->withCount('comment')->orderBy('comment_count', 'desc');
     }
 
-    
+    public function tags(){
+        return $this->belongsToMany(Tag::class,'post_tags', 'posts_id','tags_id');
+    }
 
     public static function boot()
     {
@@ -55,20 +57,12 @@ class Post extends Model
             $post->comment()->delete();
         });
 
-        // static::updating(function (Post $post) {
-        //     Cache::forget("blog-posts-{$post->id}");
-        // });
-
-        // Static::deleting(function(Post $post){
-        //     Cache::forget("blog-posts-{$post->id}");
-        // });
+        static::updating(function (Post $post) {
+            Cache::forget("blog-posts-{$post->id}");
+        });
 
         static::restoring(function (Post $post) {
             $post->comments->restored();
         });
-    }
-
-    public function tags(){
-        return $this->belongsToMany(Tags::class);
     }
 }

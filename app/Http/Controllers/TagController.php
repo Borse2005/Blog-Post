@@ -2,18 +2,13 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Tags;
-use Illuminate\Http\Request;
+use App\Models\Tag;
 
 class TagController extends Controller
 {
     public function index($tag){
-        $tag = Tags::FindOrFail($tag);
-         return view('post', [
-             'post' => $tag->post,
-             'comment' => [],
-             'active' => [],
-             'user'=> []
-        ]);
+        $tags = Tag::FindOrFail($tag);
+        $post = $tags->post;
+         return view('posts',compact('post'));
     }
 }

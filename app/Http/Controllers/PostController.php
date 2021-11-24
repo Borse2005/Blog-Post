@@ -4,7 +4,6 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\Post as RequestsPost;
 use App\Models\Post;
-use App\Models\User;
 use Illuminate\Support\Facades\Cache;
 
 class PostController extends Controller
@@ -20,30 +19,10 @@ class PostController extends Controller
      */
     public function index()
     {
-        $posts = Cache::remember('blog-posts', now()->addMinutes(10), function(){
-            return Post::latest()->withCount('comment')->with('user')->with('tags')->get();
-        });
-       
-        $comments = Cache::remember('comment',now()->addMinutes(10), function ()
-        {
-            return Post::mostCommented()->take(5)->get();
-        });
-
-        $users = Cache::remember('user', now()->addMinutes(10), function(){
-            return User::withMostActiveUser()->take(5)->get();
-        });
-
-        $actives = Cache::remember('active', now()->addMinutes(10), function(){
-            return User::MostActiveUserInLastMonth()->take(5)->get();
-        });
         
-        $post =  $posts;
-        $comment = $comments;
-        $user =  $users;
-        $active = $actives;
-
+        $post =  Post::latest()->withCount('comment')->with('user')->with('tags')->get();
         // dd($post);
-        return view('post', compact('post','comment','user', 'active'));
+        return view('posts', compact('post'));
     }
 
     /**
@@ -86,7 +65,7 @@ class PostController extends Controller
         // Cache::forget("blog-posts-{$id}");
 
         $posts = Cache::remember("blog-posts-{$id}", now()->addMinutes(10), function() use($id) {
-            return Post::with('comment','user')->Find($id);
+            return Post::with('comment','user')->with('tags')->Find($id);
         });
 
 
