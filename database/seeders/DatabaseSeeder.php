@@ -2,6 +2,8 @@
 
 namespace Database\Seeders;
 
+use App\Models\Post;
+use App\Models\Tags;
 use Illuminate\Support\Str;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\Cache;
@@ -27,10 +29,17 @@ class DatabaseSeeder extends Seeder
             'is_admin' =>true,
         ]);
 
+        // DB::table('post_tags')->insert([
+        //     'posts_id' => rand(1, Post::count()),
+        //     'tags_id' => rand(1, Tags::count()),
+        // ]);
+
         Cache::flush();
 
          \App\Models\User::factory(10)->create();
-         \App\Models\Post::factory(20)->create();
+         \App\Models\Post::factory(50)->create();
          \App\Models\Comment::factory(50)->create();
+         \App\Models\Tags::factory(50)->create();
+
     }
 }

@@ -18,8 +18,11 @@
                         {{--  {{ dd($post) }}  --}}
                         <span class="font-weight-bold">Title : </span>{{ $post->title }} <br>
                         <span class="font-weight-bold">Content : </span>{{ $post->content }} <br>
+                        
                         @component('components.updated', ['date' => $post->created_at, 'name' => $post->user->name])
-                        @endcomponent <br>
+
+                        @endcomponent 
+                        <br>
 
 
                         @component('components.updated', ['date' => $post->updated_at, ])
@@ -72,6 +75,9 @@
                     </div>
                 </div>
             </div>
+        </div>
+        <div class="col-md-4">
+            @include('layouts._activity')
         </div>
     </div>
 </div>
