@@ -15,27 +15,36 @@
                     @endif
 
                     <div>
+                        {{--  {{ dd($post) }}  --}}
                         <span class="font-weight-bold">Title : </span>{{ $post->title }} <br>
                         <span class="font-weight-bold">Content : </span>{{ $post->content }} <br>
                         @component('components.updated', ['date' => $post->created_at, 'name' => $post->user->name])
                         @endcomponent <br>
+
+
                         @component('components.updated', ['date' => $post->updated_at, ])
                             Updated
                         @endcomponent
+
+
                         @component('components.badge', ['show' => now()->diffInMinutes($post->created_at) < 5])
                             New Post !   
                         @endcomponent
-                        <div class="pl-3">
-                            Currently read by {{ $counter }} people
-                        </div>
+
+
+                            <div class="pl-3">
+                                Currently read by {{ $counter }} people
+                            </div>
                         <div >
                             <div class="font-weight-bold">Comment : </div>
                             <div class="pl-3">
                                 @forelse ($post->comment as $key=> $posts)
                                   {{ $posts->content }} <br>
                                   <span class="pl-3">
+
                                     @component('components.updated', ['date' => $posts->created_at,])
                                     @endcomponent
+
                                 </span><br>
                                 @empty
                                     <div>Comments not yet!</div>

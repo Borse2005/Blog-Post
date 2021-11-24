@@ -1,5 +1,5 @@
 @if (!isset($show) || $show)
-    <span class="font-weight-bold ">
+    <br><span class="font-weight-bold ml-3">
         Types : 
     </span>
     <span class="badge badge-{{ $type ?? 'success'}} " >

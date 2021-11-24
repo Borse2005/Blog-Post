@@ -27,7 +27,7 @@ class DatabaseSeeder extends Seeder
             'is_admin' =>true,
         ]);
 
-        Cache::tags(['blog-posts'])->flush();
+        Cache::flush();
 
          \App\Models\User::factory(100)->create();
          \App\Models\Post::factory(200)->create();

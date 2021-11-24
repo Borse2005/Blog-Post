@@ -14,13 +14,13 @@
                         </div>
                     @endif
 
-                    @forelse ($post as $posts)
+                    @forelse ($post as  $posts)
                         <div>
                             @if ($posts->trashed())
-                                <del>   
+                                <del class="text->muted">   
                             @endif
                                 <a href="{{ route('post.show',$posts->id) }}" class="text-decoration-none {{ $posts->trashed() ? 'text-muted' : "" }}" >
-                                    {{ $posts->title }}
+                                    <span class="text-dark">{{ $posts->id }}. </span> {{ $posts->title }}
                                 </a>
                             @if ($posts->trashed())
                                 </del>          
@@ -30,6 +30,8 @@
                             @component('components.updated', ['date' => $posts->created_at, 'name' => $posts->user->name])
                                
                             @endcomponent <br>
+
+
                             @if ($posts->comment_count)
                                <span class="font-weight-bold pl-3">{{ $posts->comment_count }}. </span>Comments
                             @else

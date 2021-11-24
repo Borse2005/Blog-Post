@@ -17,20 +17,27 @@ class Post extends Model
     protected $fillable = [
         'title',
         'content',
-        'user_id'
+        'user_id',
     ];
 
-    public function comment(){
+    public function comment()
+    {
         return $this->hasMany(Comment::class)->latest();
     }
 
-    public function user(){
+    public function user()
+    {
         return $this->belongsTo(User::class);
     }
 
-    
-    public function scopeLatest(Builder $query){
-        return $query->orderBy(Static::CREATED_AT, 'desc');
+    // public function tags()
+    // {
+    //     return $this->belongsToMany(Tag::class, 'posts_tags');
+    // }
+
+    public function scopeLatest(Builder $query)
+    {
+        return $query->orderBy(static::CREATED_AT, 'desc');
     }
 
     public function scopeMostCommented(Builder $query)
@@ -39,24 +46,25 @@ class Post extends Model
         return $query->withCount('comment')->orderBy('comment_count', 'desc');
     }
 
-    
-
-    public static function boot(){
+    public static function boot()
+    {
         static::addGlobalScope(new DeletedAdminScope);
 
         parent::boot();
 
-        static::deleting(function(Post $post){
+        static::deleting(function (Post $post) {
             $post->comment()->delete();
         });
 
-        static::updating(function(Post $post){
+        static::updating(function (Post $post) {
             Cache::forget("blog-posts-{$post->id}");
         });
 
-        
+        Static::deleting(function(Post $post){
+            Cache::forget("blog-posts-{$post->id}");
+        });
 
-        static::restoring(function(Post $post){
+        static::restoring(function (Post $post) {
             $post->comments->restored();
         });
     }
