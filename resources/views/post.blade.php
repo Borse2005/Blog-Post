@@ -15,6 +15,7 @@
                     @endif
 
                     @forelse ($post as  $posts)
+                    {{-- {{ dd($posts) }} --}}
                         <div>
                             @if ($posts->trashed())
                                 <del class="text->muted">   
@@ -30,7 +31,10 @@
                             @component('components.updated', ['date' => $posts->created_at, 'name' => $posts->user->name])
                                
                             @endcomponent <br>
-
+                            
+                            @component('components.tags', ['tags' => $posts->tags])
+                                
+                            @endcomponent
 
                             @if ($posts->comment_count)
                                <span class="font-weight-bold pl-3">{{ $posts->comment_count }}. </span>Comments
@@ -103,6 +107,9 @@
                         Users with most posts written
                     @endslot
                     @slot('items', collect($user)->pluck('name'))
+                    @slot('else')
+                        User not found!
+                    @endslot
                 @endcomponent
             </div>
             <div class="card mt-4" style="width: 18rem;">
@@ -130,6 +137,9 @@
                     Last month active user
                 @endslot
                 @slot('items', collect($active)->pluck('name'))
+                @slot('else')
+                    Last month active user not found!
+                @endslot
             @endcomponent
         </div>
     </div>

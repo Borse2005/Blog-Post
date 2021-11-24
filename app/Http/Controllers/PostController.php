@@ -20,9 +20,9 @@ class PostController extends Controller
      */
     public function index()
     {
-        // $posts = Cache::remember('blog-posts', now()->addMinutes(10), function(){
-        //     return Post::latest()->withCount('comment')->with('user')->get();
-        // });
+        $posts = Cache::remember('blog-posts', now()->addMinutes(10), function(){
+            return Post::latest()->withCount('comment')->with('user')->with('tags')->get();
+        });
        
         $comments = Cache::remember('comment',now()->addMinutes(10), function ()
         {
@@ -36,11 +36,12 @@ class PostController extends Controller
         $actives = Cache::remember('active', now()->addMinutes(10), function(){
             return User::MostActiveUserInLastMonth()->take(5)->get();
         });
-
-        $post = Post::latest()->withCount('comment')->with('user')->get();
+        
+        $post =  $posts;
         $comment = $comments;
         $user =  $users;
         $active = $actives;
+
         // dd($post);
         return view('post', compact('post','comment','user', 'active'));
     }

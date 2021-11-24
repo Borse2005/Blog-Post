@@ -12,7 +12,7 @@
                     {{ $item }}
                 </li>
             @empty
-                <div class="list-group-item">Comments not yet!</div>
+                <div class="list-group-item">{{ $else }}</div>
             @endforelse 
         @else
             {{ $items }}

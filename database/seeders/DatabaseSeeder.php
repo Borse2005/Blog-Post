@@ -29,8 +29,8 @@ class DatabaseSeeder extends Seeder
 
         Cache::flush();
 
-         \App\Models\User::factory(100)->create();
-         \App\Models\Post::factory(200)->create();
-         \App\Models\Comment::factory(500)->create();
+         \App\Models\User::factory(10)->create();
+         \App\Models\Post::factory(20)->create();
+         \App\Models\Comment::factory(50)->create();
     }
 }

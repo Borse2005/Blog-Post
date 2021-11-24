@@ -55,4 +55,6 @@ class User extends Authenticatable
             return $query->whereBetween(Static::CREATED_AT, [now()->subMonth(), now()]);
         }])->has('post', '>=', 2)->orderBy('post_count','desc');
     }
+
+   
 }

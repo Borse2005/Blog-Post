@@ -31,6 +31,9 @@
                             New Post !   
                         @endcomponent
 
+                        @component('components.tags', ['tags' => $post->tags])
+                                
+                        @endcomponent
 
                             <div class="pl-3">
                                 Currently read by {{ $counter }} people

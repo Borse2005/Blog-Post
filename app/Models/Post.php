@@ -30,10 +30,7 @@ class Post extends Model
         return $this->belongsTo(User::class);
     }
 
-    // public function tags()
-    // {
-    //     return $this->belongsToMany(Tag::class, 'posts_tags');
-    // }
+    
 
     public function scopeLatest(Builder $query)
     {
@@ -46,6 +43,8 @@ class Post extends Model
         return $query->withCount('comment')->orderBy('comment_count', 'desc');
     }
 
+    
+
     public static function boot()
     {
         static::addGlobalScope(new DeletedAdminScope);
@@ -56,16 +55,20 @@ class Post extends Model
             $post->comment()->delete();
         });
 
-        static::updating(function (Post $post) {
-            Cache::forget("blog-posts-{$post->id}");
-        });
+        // static::updating(function (Post $post) {
+        //     Cache::forget("blog-posts-{$post->id}");
+        // });
 
-        Static::deleting(function(Post $post){
-            Cache::forget("blog-posts-{$post->id}");
-        });
+        // Static::deleting(function(Post $post){
+        //     Cache::forget("blog-posts-{$post->id}");
+        // });
 
         static::restoring(function (Post $post) {
             $post->comments->restored();
         });
+    }
+
+    public function tags(){
+        return $this->belongsToMany(Tags::class);
     }
 }

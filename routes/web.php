@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\CommentController;
 use App\Http\Controllers\PostController;
+use App\Http\Controllers\TagController;
 use GuzzleHttp\Middleware;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
@@ -30,3 +31,5 @@ Route::resource('/post', PostController::class);
 Route::get('/comment/{id}', [CommentController::class, 'index'])->name('index');
 Route::get('/comment', [CommentController::class, 'store'])->name('store')->middleware('auth');
 
+
+Route::get("post/tag/{tag}", [TagController::class, 'index'])->name('post.tag.index');
