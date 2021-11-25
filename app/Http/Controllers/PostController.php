@@ -20,7 +20,7 @@ class PostController extends Controller
     public function index()
     {
         
-        $post =  Post::latest()->withCount('comment')->with('user')->with('tags')->get();
+        $post =  Post::LatestWithRelation()->get();
         // dd($post);
         return view('posts', compact('post'));
     }
@@ -65,7 +65,11 @@ class PostController extends Controller
         // Cache::forget("blog-posts-{$id}");
 
         $posts = Cache::remember("blog-posts-{$id}", now()->addMinutes(10), function() use($id) {
-            return Post::with('comment','user')->with('tags')->Find($id);
+            return Post::with('comment')
+            ->with('user')
+            ->with('tags')
+            ->with('comment.user')
+            ->Find($id);
         });
 
 

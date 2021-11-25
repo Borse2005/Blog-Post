@@ -43,6 +43,10 @@ class Post extends Model
         return $query->withCount('comment')->orderBy('comment_count', 'desc');
     }
 
+    public function scopeLatestWithRelation(Builder $query){
+        return $query->latest()->withCount('comment')->with('user')->with('tags');
+    }
+
     public function tags(){
         return $this->belongsToMany(Tag::class,'post_tag', 'posts_id','tags_id');
     }

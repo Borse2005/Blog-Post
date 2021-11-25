@@ -46,6 +46,10 @@ class User extends Authenticatable
         return $this->hasMany(Post::class);
     }
 
+    public function comment(){
+        return $this->hasMany(Comment::class);
+    }
+
     public function scopeWithMostActiveUser(Builder $query){
         return $query->withCount('post')->orderBy('post_count', 'desc');
     }

@@ -8,7 +8,7 @@ class TagController extends Controller
 {
     public function index($tag){
         $tags = Tag::FindOrFail($tag);
-        $post = $tags->post;
+        $post = $tags->post()->latestWithRelation()->get();
          return view('posts',compact('post'));
     }
 }

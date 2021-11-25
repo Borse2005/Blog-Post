@@ -48,7 +48,7 @@
                                   {{ $posts->content }} <br>
                                   <span class="pl-3">
 
-                                    @component('components.updated', ['date' => $posts->created_at,])
+                                    @component('components.updated', ['date' => $posts->created_at,'name'=> $posts->user->name])
                                     @endcomponent
 
                                 </span><br>
