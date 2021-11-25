@@ -2,10 +2,9 @@
 
 namespace Database\Factories;
 
-use App\Models\Post;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
-class CommentFactory extends Factory
+class TagFactory extends Factory
 {
     /**
      * Define the model's default state.
@@ -14,11 +13,9 @@ class CommentFactory extends Factory
      */
     public function definition()
     {
+        
         return [
-            'content' => $this->faker->text(50),
-            'post_id' => rand(2, Post::count()),
-            'created_at' => $this->faker->dateTimeBetween('-1month'),
+            'name' => $this->faker->name('male'),
         ];
     }
-
 }
