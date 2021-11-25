@@ -64,6 +64,10 @@ class Post extends Model
         static::updating(function (Post $post) {
             Cache::forget("blog-posts-{$post->id}");
         });
+        
+        static::deleting(function (Post $post) {
+            Cache::forget("blog-posts-{$post->id}");
+        });
 
         static::restoring(function (Post $post) {
             $post->comments->restored();
