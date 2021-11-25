@@ -21,9 +21,7 @@ class PostController extends Controller
      */
     public function index()
     {
-        
         $post =  Post::LatestWithRelation()->get();
-        // dd($post);
         return view('posts', compact('post'));
     }
 
@@ -56,8 +54,6 @@ class PostController extends Controller
                 ])
             );
         }
-
-        
 
         $request->session()->flash('status', 'Post is Created!');
         return redirect()->route('post.index');
@@ -128,10 +124,6 @@ class PostController extends Controller
     {
         $post = Post::FindOrFail($posts);
         $this->authorize('update', $post);
-        // Gate::authorize('posts.update', $post);
-        // if (Gate::denies('update_post', $post)) {
-        //     abort(403, "You can't edit this post");
-        // };
         return view('post.edit', compact('post'));
     }
 
@@ -162,8 +154,7 @@ class PostController extends Controller
                         'path' => $path,
                     ])
                 );
-            }
-            
+            }            
         }
 
         $post->save();
@@ -182,10 +173,6 @@ class PostController extends Controller
     {
         $posts = Post::FindOrFail($post);
         $this->authorize('delete', $posts);
-        // Gate::authorize('posts.delete',$posts);
-        // if (Gate::denies('delete_post', $posts) ) {
-        //     abort(403, "You can't delete this post");
-        // };
         $posts->delete();
         session()->flash('status', 'Post is Deleted!');
         return redirect()->route('post.index');

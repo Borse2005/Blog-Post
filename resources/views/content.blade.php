@@ -21,7 +21,7 @@
 
                         @if ($post->images)
                             <span class="font-weight-bold">Image : </span>  
-                                <div style="background-image: url('{{ $post->images ->url() }}'); min-height: 500px;  color: white; text-align: center; background-attachment: fixed;">
+                                <div style="background-image: url('{{ $post->images ->url() }}'); min-height: 500px;  color: white; text-align: center; ">
                                 </div>
 
                             <br>
