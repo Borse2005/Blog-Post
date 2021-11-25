@@ -2,6 +2,7 @@
 
 namespace Database\Seeders;
 
+use App\Models\Image;
 use App\Models\Post;
 use App\Models\Tag;
 use Carbon\Factory;

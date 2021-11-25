@@ -26,7 +26,8 @@ class Post extends FormRequest
     {
         return [
             'title' => 'required|min:7|max:30',
-            'content' => 'required|min:7'
+            'content' => 'required|min:7',
+            'thumbnail' => 'image|mimes:png,jpg,jpeg|max:1024|dimensions:min_height=500'
         ];
     }
 }

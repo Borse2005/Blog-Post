@@ -8,7 +8,7 @@
                 <div class="card-header">{{ __('Edit Post') }}</div>
 
                 <div class="card-body">
-                    <form method="POST" action="{{ route('post.update',$post->id)}}">
+                    <form method="POST" action="{{ route('post.update',$post->id)}}" enctype="multipart/form-data">
                         @csrf
                         @method('PUT')
                         @include('post.include')                        

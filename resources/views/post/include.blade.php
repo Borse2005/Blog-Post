@@ -23,3 +23,16 @@
         @enderror
     </div>
 </div>
+
+<div class="form-group row">
+    <label for="content" class="col-md-4 col-form-label text-md-right">{{ __('Thumbnail') }}</label>
+
+    <div class="col-md-6">
+        <input id="thumbnail"  type="file" class="form-control-file @error('thumbnail') is-invalid @enderror" name="thumbnail"   autocomplete="title" autofocus>
+        @error('thumbnail')
+            <span class="invalid-feedback" role="alert">
+                <strong>{{ $message }}</strong>
+            </span>
+        @enderror
+    </div>
+</div>

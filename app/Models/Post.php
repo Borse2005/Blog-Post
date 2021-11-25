@@ -51,6 +51,10 @@ class Post extends Model
         return $this->belongsToMany(Tag::class,'post_tag', 'posts_id','tags_id');
     }
 
+    public function images(){
+        return $this->hasOne(Image::class);
+    }
+
     public static function boot()
     {
         static::addGlobalScope(new DeletedAdminScope);
@@ -59,15 +63,14 @@ class Post extends Model
 
         static::deleting(function (Post $post) {
             $post->comment()->delete();
+            Cache::forget("blog-posts-{$post->id}");
         });
 
         static::updating(function (Post $post) {
             Cache::forget("blog-posts-{$post->id}");
         });
         
-        static::deleting(function (Post $post) {
-            Cache::forget("blog-posts-{$post->id}");
-        });
+        
 
         static::restoring(function (Post $post) {
             $post->comments->restored();

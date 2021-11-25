@@ -3,8 +3,10 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\Post as RequestsPost;
+use App\Models\Image;
 use App\Models\Post;
 use Illuminate\Support\Facades\Cache;
+use Illuminate\Support\Facades\Storage;
 
 class PostController extends Controller
 {
@@ -45,7 +47,18 @@ class PostController extends Controller
     {
         $validation = $request->validated();
         $validation['user_id'] = $request->user()->id;
-        Post::create($validation);
+        $post = Post::create($validation);
+        if ($request->hasFile('thumbnail')) {
+            $path = $request->file('thumbnail')->store('thumbnails');
+            $post->images()->save(
+                Image::create([
+                    'path' => $path,
+                ])
+            );
+        }
+
+        
+
         $request->session()->flash('status', 'Post is Created!');
         return redirect()->route('post.index');
     }
@@ -58,12 +71,7 @@ class PostController extends Controller
      */
     public function show($id)
     {
-        // $post = Post::with(['comment' => function($query){
-        //     $query->latest();
-        // }],'user')->FindOrFail($post);
-
-        // Cache::forget("blog-posts-{$id}");
-
+      
         $posts = Cache::remember("blog-posts-{$id}", now()->addMinutes(10), function() use($id) {
             return Post::with('comment')
             ->with('user')
@@ -106,6 +114,7 @@ class PostController extends Controller
         $counter = Cache::get($counterKeys);
 
         $post = $posts;
+
         return view('content', compact('post','counter'));
     }
 
@@ -139,6 +148,24 @@ class PostController extends Controller
         $this->authorize('update', $post);
         $validation = $request->validated();
         $post->fill($validation);
+        
+        if ($request->hasFile('thumbnail')) {
+            
+            $path = $request->file('thumbnail')->store('thumbnails');
+            if($post->images){
+                Storage::delete($post->images->path);
+                $post->images->path = $path;
+                $post->images->save();
+            }else{
+                $post->images()->save(
+                    Image::create([
+                        'path' => $path,
+                    ])
+                );
+            }
+            
+        }
+
         $post->save();
 
         $request->session()->flash('status', 'Post is updated!');
