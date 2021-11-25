@@ -18,6 +18,16 @@
                         {{--  {{ dd($post) }}  --}}
                         <span class="font-weight-bold">Title : </span>{{ $post->title }} <br>
                         <span class="font-weight-bold">Content : </span>{{ $post->content }} <br>
+
+                        @if ($post->images)
+                            <span class="font-weight-bold">Image : </span>  
+                                <div style="background-image: url('{{ $post->images ->url() }}'); min-height: 500px;  color: white; text-align: center; background-attachment: fixed;">
+                                </div>
+
+                            <br>
+                        @else
+                            <div class="pl-3">Image Not Found!</div>
+                        @endif
                         
                         @component('components.updated', ['date' => $post->created_at, 'name' => $post->user->name])
 
