@@ -26,7 +26,6 @@ class CommentController extends Controller
         $validation = $request->validated();
         $validation['user_id'] = $request->user()->id;
         ModelsComment::create($validation);
-        Cache::forget("blog-posts-{$validation['post_id']}");
         $request->session()->flash('status', 'Comment posted!');
         return redirect()->route('post.show',$validation['post_id']);
     }
