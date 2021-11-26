@@ -21,6 +21,7 @@ class User extends Authenticatable
         'name',
         'email',
         'password',
+        'avatar',
     ];
 
     /**
@@ -52,6 +53,10 @@ class User extends Authenticatable
 
     public function scopeWithMostActiveUser(Builder $query){
         return $query->withCount('post')->orderBy('post_count', 'desc');
+    }
+
+    public function images(){
+        return $this->morphOne(Image::class, 'imageable');
     }
 
     public function scopeMostActiveUserInLastMonth(Builder $query){

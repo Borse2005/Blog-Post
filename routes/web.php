@@ -3,6 +3,7 @@
 use App\Http\Controllers\CommentController;
 use App\Http\Controllers\PostController;
 use App\Http\Controllers\TagController;
+use App\Http\Controllers\UserController;
 use GuzzleHttp\Middleware;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
@@ -27,6 +28,7 @@ Auth::routes();
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 Route::get('/secret', [App\Http\Controllers\HomeController::class, 'secret'])->name('secret')->middleware('can:home.secret');
 Route::resource('/post', PostController::class);
+Route::resource('/user', UserController::class)->only(['show','edit','update']);
 
 Route::get('/comment/{id}', [CommentController::class, 'index'])->name('index');
 Route::get('/comment', [CommentController::class, 'store'])->name('store')->middleware('auth');

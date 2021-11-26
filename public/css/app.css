@@ -10023,3 +10023,7 @@ h3 {
   font-size: 0.8rem;
 }
 
+.avatar {
+  height: 128px;
+  width: 128px;
+}

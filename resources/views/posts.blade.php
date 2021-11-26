@@ -30,7 +30,7 @@
 
                             <br>
                             
-                            @component('components.updated', ['date' => $posts->created_at, 'name' => $posts->user->name])
+                            @component('components.updated', ['date' => $posts->created_at, 'name' => $posts->user->name, 'link' => $posts->user->id])
                                
                             @endcomponent
                             

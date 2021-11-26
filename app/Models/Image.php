@@ -11,15 +11,15 @@ class Image extends Model
     use HasFactory;
 
     protected $fillable = [
-        'path',
-        'post_id'
+        'path'
     ];
 
-    public function post(){
-        return $this->belongsTo(Post::class);
+    public function imageable(){
+        return $this->morphTo();
     }
 
-    public function url(){
+    public function url()
+    {
         return Storage::disk('local')->url($this->path);
     }
 }

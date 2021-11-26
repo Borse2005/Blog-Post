@@ -52,7 +52,7 @@ class Post extends Model
     }
 
     public function images(){
-        return $this->hasOne(Image::class);
+        return $this->morphOne(Image::class, 'imageable');
     }
 
     public static function boot()

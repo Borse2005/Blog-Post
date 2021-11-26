@@ -3,9 +3,11 @@
 namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
+use App\Models\Image;
 use App\Providers\RouteServiceProvider;
 use App\Models\User;
 use Illuminate\Foundation\Auth\RegistersUsers;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
 
@@ -64,10 +66,20 @@ class RegisterController extends Controller
      */
     protected function create(array $data)
     {
-        return User::create([
+            $user = User::create([
             'name' => $data['name'],
             'email' => $data['email'],
+            'avatar' => $data['avatar'],
             'password' => Hash::make($data['password']),
         ]);
+
+        if (request()->hasFile('avatar')) {
+            $path =  request()->file('avatar')->store('avatars');
+            $user->images()->save(
+                $image = Image::make([
+                    'path' => $path,
+                ])
+            );
+        }
     }
 }
