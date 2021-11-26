@@ -25,7 +25,6 @@ class Comment extends FormRequest
     {
         return [
             'content' => 'required|min:5|max:50',
-            'post_id' => 'required'
         ];
     }
 }
