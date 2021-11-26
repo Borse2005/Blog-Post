@@ -31,13 +31,11 @@
                             <br>
                             
                             @component('components.updated', ['date' => $posts->created_at, 'name' => $posts->user->name, 'link' => $posts->user->id])
-                               
                             @endcomponent
                             
                             <br>
                             
-                            @component('components.tags', ['tags' => $posts->tags])
-                                
+                            @component('components.tags', ['tags' => $posts->tags])                                
                             @endcomponent
 
                             @if ($posts->comment_count)
@@ -48,9 +46,7 @@
 
                         </div>
                     @empty
-
                         <div>Post not yet!</div>
-
                     @endforelse
                 </div>
             </div>
