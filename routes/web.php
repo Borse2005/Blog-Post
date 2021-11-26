@@ -4,6 +4,7 @@ use App\Http\Controllers\CommentController;
 use App\Http\Controllers\PostCommentController;
 use App\Http\Controllers\PostController;
 use App\Http\Controllers\TagController;
+use App\Http\Controllers\UserCommentController;
 use App\Http\Controllers\UserController;
 use GuzzleHttp\Middleware;
 use Illuminate\Support\Facades\Auth;
@@ -28,8 +29,8 @@ Route::get('/', function () {
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 Route::get('/secret', [App\Http\Controllers\HomeController::class, 'secret'])->name('secret')->middleware('can:home.secret');
 Route::resource('post', PostController::class);
-Route::resource('/user', UserController::class)->only(['show','edit','update']);
-
+Route::resource('user', UserController::class)->only(['show','edit','update']);
+Route::resource('user.comment', UserCommentController::class)->only('store');
 Route::get("post/tag/{tag}", [TagController::class, 'index'])->name('post.tag.index');
 Route::resource('post.comment', PostCommentController::class)->only(['store']);
 

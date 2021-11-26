@@ -52,36 +52,20 @@
                             Currently read by {{ $counter }} people
                         </div>
 
-                        <div class="form-group mb-0">
-                            <form action="{{ route('post.comment.store',['post' => $post->id]) }}" method="post">
-                                @csrf
-                                <div class="row">
-                                    <div class="col-md-5">
-                                        <input type="text" name="content" class="form-control @error('content') is-invalid @enderror mt-2 ml-3">
-                                    </div>
-                                    
-                                    <div class="col-md-7">
-                                        <input type="submit"  value="Add Comment" class="btn btn-success mt-2">
-                                    </div>
-                                </div>
-                            </form>
-                        </div>
-                        <div class="text-danger mt-0 ml-3 font-weight-bold" >
-                            @error('content')
-                                {{ $message }}
-                            @enderror
-                        </div>
+                        @component('components.comments', ['post' => 'post.comment.store','id' => $post->id])
+                        @endcomponent
+
                         <div >
                             <div class="font-weight-bold">Comment : </div>
                             <div class="pl-3">
                                 @forelse ($post->comment as $key=> $posts)
-                                  {{ $posts->content }} <br>
-                                  <span class="pl-3">
+                                    {{ $posts->content }} <br>
+                                    <span class="pl-3">
 
-                                    @component('components.updated', ['date' => $posts->created_at,'name'=> $posts->user->name])
+                                    @component('components.updated', ['date' => $posts->created_at,'name'=> $posts->user->name, 'link' => $posts->user->id])
                                     @endcomponent
 
-                                </span><br>
+                                    </span><br>
                                 @empty
                                     <div>Comments not yet!</div>
                                 @endforelse

@@ -59,6 +59,11 @@ class User extends Authenticatable
         return $this->morphOne(Image::class, 'imageable');
     }
 
+    public function commentOn()
+    {
+        return $this->morphMany(Comment::class, 'commentable')->latest();
+    }
+
     public function scopeMostActiveUserInLastMonth(Builder $query){
         return $query->withCount(['post' => function(Builder $query){
             return $query->whereBetween(Static::CREATED_AT, [now()->subMonth(), now()]);

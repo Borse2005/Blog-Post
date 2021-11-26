@@ -16,12 +16,11 @@ class Comment extends Model
 
     protected $fillable = [
         'content',
-        'post_id',
         'user_id'
     ];
 
-    public function post(){
-        return $this->belongsToMany(Post::class);
+    public function commentable(){
+        return $this->morphTo();
     }   
 
     public function user(){
@@ -44,8 +43,11 @@ class Comment extends Model
         parent::boot();
 
         Static::creating(function(Comment $comment){
-            Cache::forget("blog-posts-{$comment->post_id}");
-            Cache::forget("comments");
+           
+            if ($comment->commentable_type === Post::class) {
+                Cache::forget("blog-posts-{$comment->commentable_id}");
+                Cache::forget("comments");
+            }
         });
 
     }

@@ -36,6 +36,20 @@
                                 @endif
                             </div>
 
+                            @component('components.comments', ['post' => 'user.comment.store', 'id' => $user->id])
+                                
+                            @endcomponent <br>
+
+                            @forelse ($user->commentOn as $key => $user)
+                                <div class="ml-2">
+                                   <span class="font-weight-bold">{{ $key }}</span> . {{ $user->content }}
+                                </div>
+                            @empty
+                                
+                            @endforelse ()
+                                
+                           
+                            
                             @can('user.update', $user->id)
                             <div>
                                 <a href="{{ route('user.edit',$user->id) }}" class="btn btn-success mt-3">Update</a>
