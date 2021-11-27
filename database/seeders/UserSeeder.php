@@ -23,8 +23,9 @@ class UserSeeder extends Seeder
             'name' => 'Darshan Borse',
             'email' => 'borsedarshan77@gmail.com',
             'email_verified_at' => now(),
-            'password' => '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', // password
+            'password' => '$2y$10$TDOnf0cXY91hXuI4QVUMPuk8XOwZRxHzddSLYydUjrL96ndrmPR/S', // Darshan@123
             'remember_token' => Str::random(10),
+            'is_admin' => true,
         ]);
     }
 }
