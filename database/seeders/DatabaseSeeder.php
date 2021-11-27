@@ -6,6 +6,8 @@ use App\Models\Image;
 use App\Models\Post;
 use App\Models\Tag;
 use Carbon\Factory;
+use CommentsTableSeeder;
+use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Str;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\Cache;
@@ -54,8 +56,8 @@ class DatabaseSeeder extends Seeder
 
          \App\Models\User::factory($userCount)->create();
          \App\Models\Post::factory( $postCount)->create();
-         \App\Models\Comment::factory($commentCount)->create();
          \App\Models\Tag::factory($tagCount)->create();
+         factory(CommentsTableSeeder::class, 20)->create();
 
          for ($i = 0; $i < $posttag; $i++) {
                 
@@ -64,5 +66,6 @@ class DatabaseSeeder extends Seeder
                 'tags_id' => rand(1, Tag::count()),
             ]);
         }
+        
     }
 }
