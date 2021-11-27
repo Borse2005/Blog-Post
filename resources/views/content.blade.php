@@ -43,9 +43,8 @@
                         @component('components.badge', ['show' => now()->diffInMinutes($post->created_at) < 5])
                             New Post !   
                         @endcomponent
-
+                        
                         @component('components.tags', ['tags' => $post->tags])
-                                
                         @endcomponent
 
                         <div class="pl-3">
