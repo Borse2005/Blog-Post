@@ -6,6 +6,8 @@ use App\Http\Controllers\PostController;
 use App\Http\Controllers\TagController;
 use App\Http\Controllers\UserCommentController;
 use App\Http\Controllers\UserController;
+use App\Mail\CommentPostedMarkDown;
+use App\Models\Comment;
 use GuzzleHttp\Middleware;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
@@ -33,5 +35,11 @@ Route::resource('user', UserController::class)->only(['show','edit','update']);
 Route::resource('user.comment', UserCommentController::class)->only('store');
 Route::get("post/tag/{tag}", [TagController::class, 'index'])->name('post.tag.index');
 Route::resource('post.comment', PostCommentController::class)->only(['store']);
+
+// Mail preview
+Route::get('mailable', function(){
+    $comment = Comment::FindOrFail(1);
+    return new CommentPostedMarkDown($comment);
+});
 
 Auth::routes();

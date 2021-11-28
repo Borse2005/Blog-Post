@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\Comment;
-use App\Mail\CommentPosted;
+use App\Mail\CommentPostedMarkDown;
 use App\Models\Post;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Mail;
@@ -44,7 +44,7 @@ class PostCommentController extends Controller
         ]);
 
         Mail::to($post->user)->send(
-            new CommentPosted($comment)
+            new CommentPostedMarkDown($comment)
         );
 
         $request->session()->flash('status', 'Comment was created!');
