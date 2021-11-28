@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use App\Scopes\DeletedAdminScope;
+use App\Trait\Taggable;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
@@ -13,6 +14,7 @@ class Post extends Model
 {
     use HasFactory;
     use SoftDeletes;
+    use Taggable;
 
     protected $fillable = [
         'title',
@@ -45,10 +47,7 @@ class Post extends Model
         return $query->latest()->withCount('comment')->with('user')->with('tags');
     }
 
-    public function tags()
-    {
-        return $this->morphToMany(Tag::class, 'taggable');
-    }
+    
 
     public function images()
     {
