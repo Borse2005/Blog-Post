@@ -13,8 +13,7 @@ use Illuminate\Support\Facades\Cache;
 class Post extends Model
 {
     use HasFactory;
-    use SoftDeletes;
-    use Taggable;
+    use SoftDeletes, Taggable;
 
     protected $fillable = [
         'title',

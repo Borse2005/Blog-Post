@@ -3,7 +3,7 @@
 namespace App\Models;
 
 use App\Scopes\DeletedAdminScope;
-use App\Trait\Taggable;
+use App\Trait\Taggable as TraitsTaggable;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
@@ -14,7 +14,7 @@ class Comment extends Model
 {
     use HasFactory;
     use SoftDeletes;
-    use Taggable;
+    use TraitsTaggable;
 
     protected $fillable = [
         'content',
