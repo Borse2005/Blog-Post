@@ -20,6 +20,7 @@ class PostFactory extends Factory
             'title' => $this->faker->text(20),
             'content' => $this->faker->paragraph(),
             'user_id' => rand(1, User::count()),
+            'created_at' => $this->faker->dateTimeBetween('-3 months'),
         ];
     }
 }

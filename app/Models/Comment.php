@@ -36,7 +36,11 @@ class Comment extends Model
         return $query->withCount('comment')->orderBy('comment_count', 'desc');
     }
        
-
+    public function tags()
+    {
+        return $this->morphToMany(Tag::class, 'taggable');
+    }
+    
     public static function boot(){
         static::addGlobalScope(new DeletedAdminScope);
 

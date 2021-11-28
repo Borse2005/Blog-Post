@@ -9,7 +9,14 @@ class Tag extends Model
 {
     use HasFactory;
 
+    protected $fillable =[
+        'tags_id'
+    ];
+
     public function post(){
-        return $this->belongsToMany(Post::class,'post_tag', 'tags_id','posts_id');
+        return $this->morphedByMany(Post::class, 'taggable');
+    }
+    public function comment(){
+        return $this->morphedByMany(Post::class, 'taggable');
     }
 }

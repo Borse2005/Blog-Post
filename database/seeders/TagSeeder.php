@@ -2,8 +2,10 @@
 
 namespace Database\Seeders;
 
+use App\Models\Post;
 use App\Models\Tag;
 use Illuminate\Database\Seeder;
+use Illuminate\Support\Facades\DB;
 
 class TagSeeder extends Seeder
 {
@@ -14,7 +16,12 @@ class TagSeeder extends Seeder
      */
     public function run()
     {
-        $tag = max((int)$this->command->ask('How many tags would you like?', 20), 1);
-        Tag::factory()->times($tag)->create();
+        $tags = collect(['Science', 'Sport', 'Politics', 'Entartainment', 'Economy']);
+
+        $tags->each(function ($tagName) {
+            $tag = new Tag();
+            $tag->name = $tagName;
+            $tag->save();
+        });
     }
 }

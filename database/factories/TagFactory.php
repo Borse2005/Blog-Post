@@ -13,6 +13,7 @@ class TagFactory extends Factory
      */
     public function definition()
     {
+        $tag = collect(['Politic', 'Science', 'Sport', 'Entertain']);
         return [
             'name' => $this->faker->name('male'),
         ];
