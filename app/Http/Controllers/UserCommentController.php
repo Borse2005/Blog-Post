@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\Comment;
 use App\Models\User;
 use Illuminate\Http\Request;
 
@@ -33,7 +34,7 @@ class UserCommentController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request, User $user)
+    public function store(Comment $request, User $user)
     {
         $user->commentOn()->create([
             'content' => $request['content'],
