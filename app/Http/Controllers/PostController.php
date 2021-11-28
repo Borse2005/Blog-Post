@@ -73,6 +73,7 @@ class PostController extends Controller
             ->with('user')
             ->with('tags')
             ->with('comment.user')
+            ->with('comment.tags')
             ->Find($id);
         });
 
