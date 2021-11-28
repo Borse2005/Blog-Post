@@ -3,8 +3,10 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\Comment;
+use App\Mail\CommentPosted;
 use App\Models\Post;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Mail;
 
 class PostCommentController extends Controller
 {
@@ -36,10 +38,14 @@ class PostCommentController extends Controller
      */
     public function store(Post $post, Comment $request)
     {
-        $post->comment()->create([
+        $comment = $post->comment()->create([
             'content' => $request->input('content'),
             'user_id' => $request->user()->id
         ]);
+
+        Mail::to($post->user)->send(
+            new CommentPosted($comment)
+        );
 
         $request->session()->flash('status', 'Comment was created!');
 

@@ -16,7 +16,7 @@
                   <span class="font-weight-bold">Content : </span>{{ $post->content }} <br>
                   @if ($post->images)
                   <span class="font-weight-bold">Image : </span>  
-                  <div style="background-image: url('{{ $post->images ->url() }}'); min-height: 500px;  color: white; text-align: center; ">
+                  <div style="background-image: url('{{ $post->images->url() }}'); min-height: 500px;  color: white; text-align: center; ">
                   </div>
                   <br>
                   @else

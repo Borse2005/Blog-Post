@@ -36,10 +36,12 @@ class UserCommentController extends Controller
      */
     public function store(Comment $request, User $user)
     {
-        $user->commentOn()->create([
+        $comment = $user->commentOn()->create([
             'content' => $request['content'],
             'user_id' => $request->user()->id,
         ]);
+
+        
         return redirect()->back();
     }
 
