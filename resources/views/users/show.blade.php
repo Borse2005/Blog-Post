@@ -57,7 +57,6 @@
                             @endforelse
                                 
                             
-                            
                     </div>
                 </div>
             </div>

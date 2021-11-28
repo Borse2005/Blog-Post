@@ -30,9 +30,13 @@
                   @endcomponent
                   @component('components.badge', ['show' => now()->diffInMinutes($post->created_at) < 5])
                     New Post !   
-                  @endcomponent
+                  @endcomponent <br>
+                  <span class="pl-3 font-weight-bold">
+                     Tags: 
+                  </span>
                   @component('components.tags', ['tags' => $post->tags])
                   @endcomponent
+                  
                   <div class="pl-3">
                      Currently read by {{ $counter }} people
                   </div>
