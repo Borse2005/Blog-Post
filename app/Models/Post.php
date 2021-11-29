@@ -59,17 +59,17 @@ class Post extends Model
 
         parent::boot();
 
-        static::deleting(function (Post $post) {
-            $post->comment()->delete();
-            Cache::forget("blog-posts-{$post->id}");
-        });
+        // static::deleting(function (Post $post) {
+        //     $post->comment()->delete();
+        //     Cache::forget("blog-posts-{$post->id}");
+        // });
 
-        static::updating(function (Post $post) {
-            Cache::forget("blog-posts-{$post->id}");
-        });
+        // static::updating(function (Post $post) {
+        //     Cache::forget("blog-posts-{$post->id}");
+        // });
 
-        static::restoring(function (Post $post) {
-            $post->comments->restored();
-        });
+        // static::restoring(function (Post $post) {
+        //     $post->comments->restored();
+        // });
     }
 }

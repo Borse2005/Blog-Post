@@ -43,18 +43,18 @@ class Comment extends Model
     //     return $this->morphToMany(Tag::class, 'taggable');
     // }
     
-    public static function boot(){
-        static::addGlobalScope(new DeletedAdminScope);
+    // public static function boot(){
+    //     static::addGlobalScope(new DeletedAdminScope);
 
-        parent::boot();
+    //     parent::boot();
 
-        Static::creating(function(Comment $comment){
+    //     // Static::creating(function(Comment $comment){
            
-            if ($comment->commentable_type === Post::class) {
-                Cache::forget("blog-posts-{$comment->commentable_id}");
-                Cache::forget("comments");
-            }
-        });
+    //     //     if ($comment->commentable_type === Post::class) {
+    //     //         Cache::forget("blog-posts-{$comment->commentable_id}");
+    //     //         Cache::forget("comments");
+    //     //     }
+    //     // });
 
-    }
+    // }
 }

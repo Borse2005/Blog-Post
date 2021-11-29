@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Events\PostPosted;
 use App\Http\Requests\Post as RequestsPost;
 use App\Models\Image;
 use App\Models\Post;
@@ -46,6 +47,8 @@ class PostController extends Controller
         $validation = $request->validated();
         $validation['user_id'] = $request->user()->id;
         $post = Post::create($validation);
+
+        event(new PostPosted($post));
         if ($request->hasFile('thumbnail')) {
             $path = $request->file('thumbnail')->store('thumbnails');
             $post->images()->save(
