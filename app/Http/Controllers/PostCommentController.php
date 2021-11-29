@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\Comment;
+use App\Jobs\NotifyUsersPostedWasCommented;
+use App\Jobs\ThrottalMail;
 use App\Mail\CommentPostedMarkDown;
 use App\Models\Post;
 use Illuminate\Http\Request;
@@ -43,9 +45,23 @@ class PostCommentController extends Controller
             'user_id' => $request->user()->id
         ]);
 
-        Mail::to($post->user)->send(
-            new CommentPostedMarkDown($comment)
-        );
+        // Mail::to($post->user)->send(
+        //     new CommentPostedMarkDown($comment)
+        // );
+
+        // Mail::to($post->user)->queue(
+        //     new CommentPostedMarkDown($comment)
+        // );
+
+        ThrottalMail::dispatch(new CommentPostedMarkDown($comment), $post->user)->onQueue('high');
+        NotifyUsersPostedWasCommented::dispatch($comment)->onQueue('low');
+
+        $time = now()->addMinutes(1);
+
+        // Mail::to($post->user)->later(
+        //     $time,
+        //     new CommentPostedMarkDown($comment)
+        // );
 
         $request->session()->flash('status', 'Comment was created!');
 
