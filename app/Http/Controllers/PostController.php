@@ -6,6 +6,7 @@ use App\Events\PostPosted;
 use App\Http\Requests\Post as RequestsPost;
 use App\Models\Image;
 use App\Models\Post;
+use App\Services\counter;
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Storage;
 
@@ -80,42 +81,13 @@ class PostController extends Controller
             ->Find($id);
         });
 
-
-        $sessionId = session()->getId();
-        $counterKeys = "post-{$id}-counter";
-        $usersKey = "post-{$id}-user";
-
-        $users = Cache::get($usersKey, []);
-        $usersUpdate = [];
-        $difference = 0;
-        $now = now();
-        foreach ($users as  $session => $lastVisit) {
-            if ($now->diffInMinutes($lastVisit) >= 1) {
-                $difference --;
-            }else{
-                $usersUpdate[$session] = $lastVisit;
-            }
-        }
-
-        if (!array_key_exists($sessionId, $users) || $now->diffInMinutes($users[$sessionId]) >= 1) {
-            $difference ++;
-        }
-
-        $usersUpdate[$sessionId] = $now;
-
-        Cache::forever($usersKey, $usersUpdate);
-
-        if (!Cache::has($counterKeys)) {
-            Cache::forever($counterKeys, 1);
-        }else{
-            Cache::increment($counterKeys, $difference);
-        }
-        
-        $counter = Cache::get($counterKeys);
-
+       $counter = new counter();
         $post = $posts;
 
-        return view('content', compact('post','counter'));
+        return view('content', [
+            'post' => $post, 
+            'counter' => $counter->increament("$id"),
+        ]);
     }
 
     /**

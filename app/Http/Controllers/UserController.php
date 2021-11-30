@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Requests\UserRequest;
 use App\Models\Image;
 use App\Models\User;
+use App\Services\counter;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 
@@ -55,7 +56,11 @@ class UserController extends Controller
      */
     public function show(User $user)
     {
-        return view('users.show', ['user' => $user]);
+        $counter = new counter();
+        return view('users.show', [
+            'user' => $user,
+            'counter' => $counter->increament($user->id),
+        ]);
     }
 
     /**

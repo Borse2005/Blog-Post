@@ -32,6 +32,12 @@
                             </div>
                             <div class="ml-3">
                                 <span class="font-weight-bold">
+                                    Visit his profile: 
+                                </span>
+                                {{ $counter }} People
+                            </div>
+                            <div class="ml-3">
+                                <span class="font-weight-bold">
                                     Language: 
                                 </span>
                                 @switch( $user->locale )
