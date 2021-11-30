@@ -30,11 +30,16 @@
                   <br>
                   @component('components.tags', ['tags' => $posts->tags])                                
                   @endcomponent
-                  @if ($posts->comment_count)
+
+                  {{-- @if ($posts->comment_count)
                     <span class="font-weight-bold pl-3">{{ $posts->comment_count }}. </span>Comments
                   @else
                     <span class="pl-3">Comments not yet!</span>
-                  @endif
+                  @endif --}}
+                  <div class="pl-3">
+                     {{ trans_choice('messages.comments',['count' => $posts->comment_count]) }}
+                  </div>
+
                </div>
                @empty
                <div>

@@ -53,9 +53,9 @@
                                 </li>
                             @endif
                         @else
-                            <a href="{{ route('home') }}" class="mt-2 mr-2 text-dark">Home</a>
-                            <a href="{{ route('post.index') }}" class="mt-2 mr-2 text-dark">Post</a>
-                            <a href="{{ route('post.create') }}" class="mt-2 mr-2 text-dark">Add Post</a>
+                            <a href="{{ route('home') }}" class="mt-2 mr-2 text-dark">{{ __('Home') }}</a>
+                            <a href="{{ route('post.index') }}" class="mt-2 mr-2 text-dark">{{ __('Blog Posts') }}</a>
+                            <a href="{{ route('post.create') }}" class="mt-2 mr-2 text-dark">{{ __('Add') }}</a>
                             <li class="nav-item dropdown">
                                 <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
                                     {{ Auth::user()->name }}
