@@ -76,8 +76,11 @@ class UserController extends Controller
      * @param  \App\Models\User  $user
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, User $user)
+    public function update(UserRequest $request, User $user)
     {
+        $user->name = $request->get('name');
+        $user->locale = $request->get('locale');
+        $user->save();
 
         if ($request->hasFile('avatar')) {
             $path = $request->file('avatar')->store('avatars');

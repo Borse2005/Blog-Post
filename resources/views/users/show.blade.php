@@ -32,6 +32,22 @@
                             </div>
                             <div class="ml-3">
                                 <span class="font-weight-bold">
+                                    Language: 
+                                </span>
+                                @switch( $user->locale )
+                                    @case('en')
+                                            {{ __('English') }}
+                                        @break
+                                        @case('es')
+                                            {{ __('Spanish') }}
+                                        @break
+                                        @case('de')
+                                            {{ __('German') }}
+                                        @break                                        
+                                @endswitch
+                            </div>
+                            <div class="ml-3">
+                                <span class="font-weight-bold">
                                     Role: 
                                 </span>
                                 @if ($user->is_admin == 0)

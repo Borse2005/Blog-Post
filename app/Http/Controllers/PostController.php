@@ -140,6 +140,7 @@ class PostController extends Controller
      */
     public function update(RequestsPost $request,  $post)
     {
+        
         $post = Post::FindOrFail($post);
         $this->authorize('update', $post);
         $validation = $request->validated();

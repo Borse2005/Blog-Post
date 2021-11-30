@@ -2,7 +2,9 @@
 
 namespace App\Http\Requests;
 
+use App\Models\User;
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Validation\Rule as ValidationRule;
 
 class UserRequest extends FormRequest
 {
@@ -24,7 +26,12 @@ class UserRequest extends FormRequest
     public function rules()
     {
         return [
-            'avatar' => "required|image|mimes:png,jpg,jpeg,svg|max:1024|dimensions:min_width:500",
+            'avatar' => "image|mimes:png,jpg,jpeg,svg|max:1024|dimensions:min_width:500",
+            'name' => 'required',
+            'locale' => [
+                'required',
+                ValidationRule::in(array_keys(User::LOCALE)),
+            ]
         ];
     }
 }
