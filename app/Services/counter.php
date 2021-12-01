@@ -6,6 +6,14 @@ use Illuminate\Support\Facades\Cache;
 
 class counter
 {
+
+    private $timeout;
+
+    public function __construct(int $timeout)
+    {
+        $this->timeout = $timeout;
+    }
+
     public function increament(string $key)
     {
         $sessionId = session()->getId();
@@ -17,14 +25,14 @@ class counter
         $difference = 0;
         $now = now();
         foreach ($users as $session => $lastVisit) {
-            if ($now->diffInMinutes($lastVisit) >= 1) {
+            if ($now->diffInMinutes($lastVisit) >= $this->timeout) {
                 $difference--;
             } else {
                 $usersUpdate[$session] = $lastVisit;
             }
         }
 
-        if (!array_key_exists($sessionId, $users) || $now->diffInMinutes($users[$sessionId]) >= 1) {
+        if (!array_key_exists($sessionId, $users) || $now->diffInMinutes($users[$sessionId]) >= $this->timeout) {
             $difference++;
         }
 

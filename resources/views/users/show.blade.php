@@ -44,10 +44,10 @@
                                     @case('en')
                                             {{ __('English') }}
                                         @break
-                                        @case('es')
+                                    @case('es')
                                             {{ __('Spanish') }}
                                         @break
-                                        @case('de')
+                                    @case('de')
                                             {{ __('German') }}
                                         @break                                        
                                 @endswitch

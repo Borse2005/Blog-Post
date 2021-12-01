@@ -12,9 +12,12 @@ use Illuminate\Support\Facades\Storage;
 
 class PostController extends Controller
 {
-    public function __construct()
+    public $counter;
+
+    public function __construct(counter $counter)
     {
         $this->middleware('auth');
+        $this->conuter = $counter;
     }
     /**
      * Display a listing of the resource.
@@ -81,12 +84,12 @@ class PostController extends Controller
             ->Find($id);
         });
 
-       $counter = new counter();
+    //    $counter = resolve(counter::class);
         $post = $posts;
 
         return view('content', [
             'post' => $post, 
-            'counter' => $counter->increament("$id"),
+            'counter' => $this->conuter->increament("$id"),
         ]);
     }
 
