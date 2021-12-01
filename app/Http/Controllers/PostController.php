@@ -16,7 +16,7 @@ class PostController extends Controller
 
     public function __construct(counter $counter)
     {
-        $this->middleware('auth');
+        // $this->middleware('auth');
         $this->conuter = $counter;
     }
     /**

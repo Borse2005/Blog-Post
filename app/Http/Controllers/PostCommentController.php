@@ -4,8 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Events\PostCommented;
 use App\Http\Requests\Comment;
-use App\Jobs\NotifyUsersPostedWasCommented;
-use App\Jobs\ThrottalMail;
+use App\Http\Resources\Comment as ResourcesComment;
 use App\Mail\CommentPostedMarkDown;
 use App\Models\Post;
 use Illuminate\Http\Request;
@@ -18,9 +17,14 @@ class PostCommentController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Post $post)
     {
-        //
+        // dump($post->comment);
+        // dump(get_class($post->comment()->with('user')->get()));
+        // die;
+
+        return  ResourcesComment::collection(($post->comment()->with('user')->get()));
+        // return $post->comment()->with('user')->get();
     }
 
     /**

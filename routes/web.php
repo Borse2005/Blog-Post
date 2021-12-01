@@ -34,12 +34,12 @@ Route::resource('post', PostController::class);
 Route::resource('user', UserController::class)->only(['show','edit','update']);
 Route::resource('user.comment', UserCommentController::class)->only('store');
 Route::get("post/tag/{tag}", [TagController::class, 'index'])->name('post.tag.index');
-Route::resource('post.comment', PostCommentController::class)->only(['store']);
+Route::resource('post.comment', PostCommentController::class)->only(['index','store']);
 
 // Mail preview
 Route::get('mailable', function(){
     $comment = Comment::FindOrFail(1);
-    return new CommentPostedMarkDown($comment);
+    return new CommentPostedMarkDown($comment); 
 });
 
 Auth::routes();
