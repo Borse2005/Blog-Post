@@ -14,6 +14,7 @@ class PostCommentController extends Controller
      */
     public function index()
     {
+        dd('darshan');
         return response()->json(['comment' => []]);
     }
 
