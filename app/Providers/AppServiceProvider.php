@@ -2,6 +2,7 @@
 
 namespace App\Providers;
 
+use App\Http\Resources\Comment as ResourcesComment;
 use App\Http\ViewComposer\ViewComposer;
 use App\Models\Comment;
 use App\Models\Post;
@@ -39,5 +40,8 @@ class AppServiceProvider extends ServiceProvider
         });
 
         // $this->app->when(counter::class)->needs('$timeout')->give(env('COUNTER_TIMEOUT'));
+
+        ResourcesComment::withoutWrapping();
+        // Resources::withoutWrapping();
     }
 }
