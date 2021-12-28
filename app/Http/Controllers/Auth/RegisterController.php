@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Auth;
 
+use App\Events\Registered;
 use App\Http\Controllers\Controller;
 use App\Models\Image;
 use App\Providers\RouteServiceProvider;
@@ -81,6 +82,7 @@ class RegisterController extends Controller
             );
         }
 
+        event(new Registered($user));
         return $user;
     }
 }
