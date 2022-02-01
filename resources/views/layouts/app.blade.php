@@ -68,7 +68,7 @@
                                     <a class="dropdown-item " href="{{ route('user.edit', Auth::user()->id) }}">
                                         {{ __('Edit') }}
                                      </a>
-                                    <a class="dropdown-item" href="{{ route('logout') }}"
+                                    <a class="dropdown-item " href="{{ route('logout') }}"
                                        onclick="event.preventDefault();
                                                      document.getElementById('logout-form').submit();">
                                         {{ __('Logout') }}
